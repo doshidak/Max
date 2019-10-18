@@ -51,7 +51,8 @@
 
 - (void) dealloc
 {
-	WavpackCloseFile(_wpc), _wpc = NULL;
+    WavpackCloseFile(_wpc);
+    _wpc = NULL;
 	
 	[super dealloc];
 }
