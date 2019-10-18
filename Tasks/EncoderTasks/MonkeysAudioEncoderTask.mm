@@ -27,7 +27,7 @@
 #include <mac/CharacterHelper.h>
 
 @interface AudioMetadata (TagMappings)
-+ (str_utf16 *)			customizeAPETag:(NSString *)tag;
++ (APE::str_utfn *)		customizeAPETag:(NSString *)tag;
 @end
 
 @implementation MonkeysAudioEncoderTask
@@ -60,17 +60,17 @@
 	NSString									*isrc					= nil;
 	NSString									*mcn					= nil;
 	NSString									*bundleVersion			= nil;
-	str_utf16									*chars					= NULL;
-	str_utf16									*tagName				= NULL;
-	CAPETag										*f						= NULL;
+	APE::str_utfn								*chars					= NULL;
+	APE::str_utfn								*tagName				= NULL;
+	APE::CAPETag								*f						= NULL;
 	int											result;
 	
 
 	@try {
-		chars = GetUTF16FromANSI([[self outputFilename] fileSystemRepresentation]);
+		chars = APE::CAPECharacterHelper::GetUTF16FromANSI([[self outputFilename] fileSystemRepresentation]);
 		NSAssert(NULL != chars, NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 
-		f = new CAPETag(chars);
+		f = new APE::CAPETag(chars);
 		NSAssert(NULL != f, NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 
 		// Album title
