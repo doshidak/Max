@@ -61,8 +61,8 @@
 	AudioBufferList					bufferList;
 	ssize_t							bufferLen					= 0;
 	UInt32							bufferByteSize				= 0;
-	WAVEFORMATEX					formatDesc;
-	str_utf16						*chars						= NULL;
+    APE::WAVEFORMATEX				formatDesc;
+	APE::str_utfn					*chars						= NULL;
 	int								result;
 	SInt64							totalFrames, framesToRead;
 	UInt32							frameCount;
@@ -87,7 +87,7 @@
 		// Create the appropriate kind of decoder
 		if(nil != [[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"]) {
 			SInt64 startingFrame = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"startingFrame"] longLongValue];
-			UInt32 frameCount = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"frameCount"] unsignedIntValue];
+			frameCount = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"frameCount"] unsignedIntValue];
 			decoder = [RegionDecoder decoderWithFilename:sourceFilename startingFrame:startingFrame frameCount:frameCount];
 		}
 		else
@@ -135,7 +135,7 @@
 		NSAssert(NULL != _compressor, NSLocalizedStringFromTable(@"Unable to create the Monkey's Audio compressor.", @"Exceptions", @""));
 						
 		// Setup compressor
-		chars = GetUTF16FromANSI([filename fileSystemRepresentation]);
+		chars = APE::CAPECharacterHelper::GetUTF16FromANSI([filename fileSystemRepresentation]);
 		NSAssert(NULL != chars, NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 		
 		result = FillWaveFormatEx(&formatDesc, (int)[decoder pcmFormat].mSampleRate, [decoder pcmFormat].mBitsPerChannel, [decoder pcmFormat].mChannelsPerFrame);
