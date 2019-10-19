@@ -479,7 +479,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 	int				bufSize;
 	
 	int				result;
-	int32_t		    numWritten; // (see comment next to numWritten in encodeChunk:chunk:frameCount: for info about this type declaration)
+	int32_t		    numWritten; // (see comment next to numWritten in encodeChunk:frameCount: for info about this type declaration)
 	
 	@try {
 		buf = NULL;
