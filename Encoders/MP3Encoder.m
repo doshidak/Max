@@ -77,7 +77,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 	FILE							*file							= NULL;
 	int								result;
 	AudioBufferList					bufferList;
-	ssize_t							bufferLen						= 0;
+	int32_t							bufferLen						= 0; // ssize_t (long) is 64 bits on x64, so we'll use int32_t instead
 	UInt32							bufferByteSize					= 0;
 	SInt64							totalFrames, framesToRead;
 	UInt32							frameCount;
@@ -103,7 +103,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 		// Create the appropriate kind of decoder
 		if(nil != [[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"]) {
 			SInt64 startingFrame = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"startingFrame"] longLongValue];
-			UInt32 frameCount = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"frameCount"] unsignedIntValue];
+			frameCount = [[[[[[self delegate] taskInfo] settings] valueForKey:@"framesToConvert"] valueForKey:@"frameCount"] unsignedIntValue];
 			decoder = [RegionDecoder decoderWithFilename:sourceFilename startingFrame:startingFrame frameCount:frameCount];
 		}
 		else
@@ -335,7 +335,8 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 	
 	void			**channelBuffers		= NULL;
 	short			**channelBuffers16		= NULL;
-	long			**channelBuffers32		= NULL;
+//	long			**channelBuffers32		= NULL; // when compiled for x64, long is, well, 64 bits! (not 32, as previously used here)
+    int             **channelBuffers32      = NULL; // int is still 32 bits in x64 (as you'd expect), so we'll use this instead of long
 	
 	int8_t			*buffer8				= NULL;
 	int16_t			*buffer16				= NULL;
@@ -344,7 +345,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 	int32_t			constructedSample;
 	
 	int				result;
-	size_t			numWritten;
+	int32_t 		numWritten; // size_t (unsigned long) is 64 bits in x64, so we'll use int32_t instead (not uint32_t though, since fwrite returns size_t)
 	
 	unsigned		wideSample;
 	unsigned		sample, channel;
@@ -407,10 +408,10 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 				break;
 				
 			case 24:
-				channelBuffers32 = (long **)channelBuffers;
+                channelBuffers32 = (int **)channelBuffers;
 				
 				for(channel = 0; channel < chunk->mBuffers[0].mNumberChannels; ++channel) {
-					channelBuffers32[channel] = calloc(frameCount, sizeof(long));
+                    channelBuffers32[channel] = calloc(frameCount, sizeof(int));
 					NSAssert(NULL != channelBuffers32[channel], NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 				}
 				
@@ -424,30 +425,30 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 						constructedSample |= (uint8_t)*buffer8++;
 												
 						// Convert to 32-bit sample scaling
-						channelBuffers32[channel][wideSample] = (long)((constructedSample << 8) | (constructedSample & 0x000000ff));
+                        channelBuffers32[channel][wideSample] = (int)((constructedSample << 8) | (constructedSample & 0x000000ff));
 					}
 				}
-					
-				result = lame_encode_buffer_long2(_gfp, channelBuffers32[0], channelBuffers32[1], frameCount, buffer, bufferLen);
+                
+                result = lame_encode_buffer_int(_gfp, channelBuffers32[0], channelBuffers32[1], frameCount, buffer, bufferLen);
 				
 				break;
 				
 			case 32:
-				channelBuffers32 = (long **)channelBuffers;
+                channelBuffers32 = (int **)channelBuffers;
 				
 				for(channel = 0; channel < chunk->mBuffers[0].mNumberChannels; ++channel) {
-					channelBuffers32[channel] = calloc(frameCount, sizeof(long));
+                    channelBuffers32[channel] = calloc(frameCount, sizeof(int));
 					NSAssert(NULL != channelBuffers32[channel], NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 				}
 					
 				buffer32 = chunk->mBuffers[0].mData;
 				for(wideSample = sample = 0; wideSample < frameCount; ++wideSample) {
 					for(channel = 0; channel < chunk->mBuffers[0].mNumberChannels; ++channel, ++sample) {
-						channelBuffers32[channel][wideSample] = (long)OSSwapBigToHostInt32(buffer32[sample]);
+                        channelBuffers32[channel][wideSample] = (int)OSSwapBigToHostInt32(buffer32[sample]);
 					}
 				}
-					
-				result = lame_encode_buffer_long2(_gfp, channelBuffers32[0], channelBuffers32[1], frameCount, buffer, bufferLen);
+                
+                result = lame_encode_buffer_int(_gfp, channelBuffers32[0], channelBuffers32[1], frameCount, buffer, bufferLen);
 				
 				break;
 				
@@ -458,7 +459,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 		
 		NSAssert(0 <= result, NSLocalizedStringFromTable(@"LAME encoding error.", @"Exceptions", @""));
 		
-		numWritten = fwrite(buffer, sizeof(unsigned char), result, _out);
+		numWritten = (int32_t) fwrite(buffer, sizeof(unsigned char), result, _out);
 		NSAssert(numWritten == result, NSLocalizedStringFromTable(@"Unable to write to the output file.", @"Exceptions", @""));
 	}
 	
@@ -478,7 +479,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 	int				bufSize;
 	
 	int				result;
-	size_t			numWritten;
+	int32_t		    numWritten; // (see comment next to numWritten in encodeChunk:frameCount: for info about this type declaration)
 	
 	@try {
 		buf = NULL;
@@ -493,7 +494,7 @@ static int sLAMEBitrates [14] = { 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192
 		NSAssert(-1 != result, NSLocalizedStringFromTable(@"LAME was unable to flush the buffers.", @"Exceptions", @""));
 		
 		// And write any frames it returns
-		numWritten = fwrite(buf, sizeof(unsigned char), result, _out);
+		numWritten = (int32_t) fwrite(buf, sizeof(unsigned char), result, _out);
 		NSAssert(numWritten == result, NSLocalizedStringFromTable(@"Unable to write to the output file.", @"Exceptions", @""));
 	}
 	
