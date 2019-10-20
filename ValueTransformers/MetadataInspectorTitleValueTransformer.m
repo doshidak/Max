@@ -27,7 +27,7 @@
 + (Class) transformedValueClass { return [NSString class]; }
 + (BOOL) allowsReverseTransformation { return NO; }
 
-- (id) transformedValue:(id) value {
+- (id) transformedValue:(id)value {
     if (value == nil) return nil;
     
     if (![value isKindOfClass:[NSString class]]) {
