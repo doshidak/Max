@@ -23,7 +23,7 @@
 
 static NSString		*EncodeToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.Encode";
 static NSString		*MetadataToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.Metadata";
-static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.AlbumArt";
+//static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.AlbumArt";
 
 @implementation FileConversionToolbar
 
@@ -75,19 +75,20 @@ static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConvers
 		[toolbarItem setImage: [NSImage imageNamed:@"TrackInfoToolbarImage"]];
 		
 		[toolbarItem setTarget:[FileConversionController sharedController]];
-		[toolbarItem setAction:@selector(toggleTrackInformation:)];
+//		[toolbarItem setAction:@selector(toggleTrackInformation:)];
+        [toolbarItem setAction:@selector(toggleMetadataPanel:)];
 	}
-	else if([itemIdentifier isEqualToString:AlbumArtToolbarItemIdentifier]) {
-		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
-		
-		[toolbarItem setLabel: NSLocalizedStringFromTable(@"Album Art", @"FileConversion", @"")];
-		[toolbarItem setPaletteLabel: NSLocalizedStringFromTable(@"Album Art", @"FileConversion", @"")];
-		[toolbarItem setToolTip: NSLocalizedStringFromTable(@"Show or hide the artwork associated with the selected files", @"FileConversion", @"")];
-		[toolbarItem setImage: [NSImage imageNamed:@"AlbumArtToolbarImage"]];
-		
-		[toolbarItem setTarget:[FileConversionController sharedController]];
-		[toolbarItem setAction:@selector(toggleAlbumArt:)];
-	}
+//	else if([itemIdentifier isEqualToString:AlbumArtToolbarItemIdentifier]) {
+//		toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+//
+//		[toolbarItem setLabel: NSLocalizedStringFromTable(@"Album Art", @"FileConversion", @"")];
+//		[toolbarItem setPaletteLabel: NSLocalizedStringFromTable(@"Album Art", @"FileConversion", @"")];
+//		[toolbarItem setToolTip: NSLocalizedStringFromTable(@"Show or hide the artwork associated with the selected files", @"FileConversion", @"")];
+//		[toolbarItem setImage: [NSImage imageNamed:@"AlbumArtToolbarImage"]];
+//
+//		[toolbarItem setTarget:[FileConversionController sharedController]];
+//		[toolbarItem setAction:@selector(toggleAlbumArt:)];
+//	}
 	else
 		toolbarItem = nil;
 	
@@ -98,7 +99,7 @@ static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConvers
 {
     return [NSArray arrayWithObjects:EncodeToolbarItemIdentifier, 
 			MetadataToolbarItemIdentifier, 
-			AlbumArtToolbarItemIdentifier, 
+//			AlbumArtToolbarItemIdentifier,
 			nil];
 }
 
@@ -106,7 +107,7 @@ static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConvers
 {
     return [NSArray arrayWithObjects:EncodeToolbarItemIdentifier, 
 			MetadataToolbarItemIdentifier, 
-			AlbumArtToolbarItemIdentifier,
+//			AlbumArtToolbarItemIdentifier,
 			NSToolbarSeparatorItemIdentifier, 
 			NSToolbarSpaceItemIdentifier, 
 			NSToolbarFlexibleSpaceItemIdentifier,

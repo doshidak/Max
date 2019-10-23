@@ -34,8 +34,10 @@
 #import "CoreAudioUtilities.h"
 #import "UtilityFunctions.h"
 
+#import "AlbumArtSizeValueTransformer.h"
 #import "BooleanArrayValueTransformer.h"
 #import "NegateBooleanArrayValueTransformer.h"
+#import "MetadataInspectorTitleValueTransformer.h"
 #import "MultiplicationValueTransformer.h"
 #import "BOOLToStringValueTransformer.h"
 #import "UppercaseStringValueTransformer.h"
@@ -51,12 +53,17 @@ static ApplicationController *sharedController = nil;
 	NSString					*defaultsValuesPath;
     NSDictionary				*defaultsValuesDictionary;
     
+    transformer = [[[AlbumArtSizeValueTransformer alloc] init] autorelease];
+    [NSValueTransformer setValueTransformer:transformer forName:@"AlbumArtSizeValueTransformer"];
 
 	transformer = [[[BooleanArrayValueTransformer alloc] init] autorelease];
 	[NSValueTransformer setValueTransformer:transformer forName:@"BooleanArrayValueTransformer"];
 
 	transformer = [[[NegateBooleanArrayValueTransformer alloc] init] autorelease];
 	[NSValueTransformer setValueTransformer:transformer forName:@"NegateBooleanArrayValueTransformer"];
+    
+    transformer = [[[MetadataInspectorTitleValueTransformer alloc] init] autorelease];
+    [NSValueTransformer setValueTransformer:transformer forName:@"MetadataInspectorTitleValueTransformer"];
 
 	transformer = [[[MultiplicationValueTransformer alloc] initWithMultiplier:10] autorelease];
 	[NSValueTransformer setValueTransformer:transformer forName:@"MultiplyByTenValueTransformer"];
