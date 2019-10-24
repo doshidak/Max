@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="Max" id="56">
@@ -33,11 +33,7 @@
                                     <action selector="showComponentVersions:" target="721" id="731"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Check for Updates…" id="857">
-                                <connections>
-                                    <action selector="checkForUpdates:" target="910" id="911"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Check for Updates…" hidden="YES" enabled="NO" id="857"/>
                             <menuItem isSeparatorItem="YES" id="196">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -228,16 +224,12 @@ DQ
                             <menuItem isSeparatorItem="YES" id="919">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Track Information" tag="2" keyEquivalent="i" id="921">
+                            <menuItem title="Metadata Inspector" tag="2" keyEquivalent="i" id="921">
                                 <connections>
-                                    <action selector="toggleTrackInformation:" target="-1" id="924"/>
+                                    <action selector="toggleMetadataPanel:" target="-1" id="cze-kL-1Py"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Album Art" keyEquivalent="A" id="920">
-                                <connections>
-                                    <action selector="toggleAlbumArt:" target="-1" id="925"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Album Art" hidden="YES" enabled="NO" keyEquivalent="A" id="920"/>
                             <menuItem isSeparatorItem="YES" id="922">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -329,10 +321,17 @@ DQ
                                     <action selector="openHomeURL:" target="721" id="747"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Learn More About This Fork" id="kD0-Rh-Q9x">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openForkURL:" target="721" id="BOT-7n-nPe"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="140" y="154"/>
         </menu>
         <customObject id="721" userLabel="ApplicationController" customClass="ApplicationController"/>
         <menu title="Menu" id="877" userLabel="Dock Menu">
@@ -348,7 +347,8 @@ DQ
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="241"/>
         </menu>
-        <customObject id="910" userLabel="SUUpdater" customClass="SUUpdater"/>
+        <customObject id="910" userLabel="SUUpdater"/>
     </objects>
 </document>

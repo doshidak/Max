@@ -79,7 +79,7 @@
 	NSString									*musicbrainzArtistId		= nil;
 	NSString									*musicbrainzAlbumArtistId	= nil;
 	NSString									*musicbrainzTrackId			= nil;
-	unsigned									index						= NSNotFound;
+	NSInteger									index						= NSNotFound; // NOTE: NSInteger is a long on x64 (i.e., 64 bits)
 	
 	NSAssert(f.isValid(), NSLocalizedStringFromTable(@"Unable to open the output file for tagging.", @"Exceptions", @""));
 
@@ -126,7 +126,7 @@
  			if(NSNotFound == index)
  				frame->setText(TagLib::String([genre UTF8String], TagLib::String::UTF8));
  			else
- 				frame->setText(TagLib::String([[NSString stringWithFormat:@"(%u)", index] UTF8String], TagLib::String::UTF8));
+ 				frame->setText(TagLib::String([[NSString stringWithFormat:@"(%ld)", (long) index] UTF8String], TagLib::String::UTF8));
  			
  			f.ID3v2Tag()->addFrame(frame);
  		}
@@ -249,11 +249,11 @@
 	// MCN
 	mcn = [metadata MCN];
 	if (nil != mcn) {
-		TagLib::ID3v2::UserTextIdentificationFrame *frame = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		frame->setDescription("MCN");
-		frame->setText(TagLib::String([mcn UTF8String], TagLib::String::UTF8));
-		f.ID3v2Tag()->addFrame(frame);
+		TagLib::ID3v2::UserTextIdentificationFrame *fr = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		fr->setDescription("MCN");
+		fr->setText(TagLib::String([mcn UTF8String], TagLib::String::UTF8));
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// ISRC
@@ -267,58 +267,59 @@
 	// MusicBrainz Artist Id
 	musicbrainzArtistId = [metadata musicbrainzArtistId];
 	if (nil != musicbrainzArtistId) {
-		TagLib::ID3v2::UserTextIdentificationFrame *frame = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		frame->setDescription("MusicBrainz Artist Id");
-		frame->setText(TagLib::String([musicbrainzArtistId UTF8String], TagLib::String::UTF8));
-		f.ID3v2Tag()->addFrame(frame);
+		TagLib::ID3v2::UserTextIdentificationFrame *fr = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		fr->setDescription("MusicBrainz Artist Id");
+		fr->setText(TagLib::String([musicbrainzArtistId UTF8String], TagLib::String::UTF8));
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// MusicBrainz Album Id
 	musicbrainzAlbumId = [metadata musicbrainzAlbumId];
 	if (nil != musicbrainzAlbumId) {
-		TagLib::ID3v2::UserTextIdentificationFrame *frame = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		frame->setDescription("MusicBrainz Album Id");
-		frame->setText(TagLib::String([musicbrainzAlbumId UTF8String], TagLib::String::UTF8));
-		f.ID3v2Tag()->addFrame(frame);
+		TagLib::ID3v2::UserTextIdentificationFrame *fr = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		fr->setDescription("MusicBrainz Album Id");
+		fr->setText(TagLib::String([musicbrainzAlbumId UTF8String], TagLib::String::UTF8));
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// MusicBrainz Album Artist Id
 	musicbrainzAlbumArtistId = [metadata musicbrainzAlbumArtistId];
 	if (nil != musicbrainzAlbumArtistId) {
-		TagLib::ID3v2::UserTextIdentificationFrame *frame = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		frame->setDescription("MusicBrainz Album Artist Id");
-		frame->setText(TagLib::String([musicbrainzAlbumArtistId UTF8String], TagLib::String::UTF8));
-		f.ID3v2Tag()->addFrame(frame);
+		TagLib::ID3v2::UserTextIdentificationFrame *fr = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		fr->setDescription("MusicBrainz Album Artist Id");
+		fr->setText(TagLib::String([musicbrainzAlbumArtistId UTF8String], TagLib::String::UTF8));
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// MusicBrainz Disc Id
 	musicbrainzDiscId = [metadata discId];
 	if (nil != musicbrainzDiscId) {
-		TagLib::ID3v2::UserTextIdentificationFrame *frame = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		frame->setDescription("MusicBrainz Disc Id");
-		frame->setText(TagLib::String([musicbrainzDiscId UTF8String], TagLib::String::UTF8));
-		f.ID3v2Tag()->addFrame(frame);
+		TagLib::ID3v2::UserTextIdentificationFrame *fr = new TagLib::ID3v2::UserTextIdentificationFrame(TagLib::String::Latin1);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		fr->setDescription("MusicBrainz Disc Id");
+		fr->setText(TagLib::String([musicbrainzDiscId UTF8String], TagLib::String::UTF8));
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// Unique file identifier
 	musicbrainzTrackId = [metadata musicbrainzTrackId];
 	if (nil != musicbrainzTrackId) {
-		TagLib::ID3v2::UniqueFileIdentifierFrame *frame = new TagLib::ID3v2::UniqueFileIdentifierFrame(
+		TagLib::ID3v2::UniqueFileIdentifierFrame *fr = new TagLib::ID3v2::UniqueFileIdentifierFrame(
 			"http://musicbrainz.org", TagLib::ByteVector([musicbrainzTrackId UTF8String])
 		);
-		NSAssert(NULL != frame, @"Unable to allocate memory.");
-		f.ID3v2Tag()->addFrame(frame);
+		NSAssert(NULL != fr, @"Unable to allocate memory.");
+		f.ID3v2Tag()->addFrame(fr);
 	}
 	
 	// Encoded by
 	frame = new TagLib::ID3v2::TextIdentificationFrame("TENC", TagLib::String::Latin1);
 	NSAssert(NULL != frame, NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
 
-	bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+//	bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]; // use Max version instead of build number
 	versionString = [NSString stringWithFormat:@"LAME %s (Max %@)", get_lame_short_version(), bundleVersion];
 	frame->setText(TagLib::String([versionString UTF8String], TagLib::String::UTF8));
 	f.ID3v2Tag()->addFrame(frame);

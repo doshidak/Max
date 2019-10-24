@@ -80,6 +80,8 @@
 		537F133A235707DE00770591 /* wavpack.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 537F12FC2357076400770591 /* wavpack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		537F139E23570FEB00770591 /* mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537F139C23570FD900770591 /* mac.framework */; };
 		537F139F23570FEC00770591 /* mac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 537F139C23570FD900770591 /* mac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5391D8022359E118004A407E /* AlbumArtSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5391D8012359E118004A407E /* AlbumArtSizeValueTransformer.m */; };
+		5391D807235E6B0D004A407E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5391D806235E6B0A004A407E /* Images.xcassets */; };
 		53BF032C23572414009B2429 /* taglib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53BF032A2357240A009B2429 /* taglib.framework */; };
 		53BF032D23572414009B2429 /* taglib.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 53BF032A2357240A009B2429 /* taglib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8C0406530B5C584000648158 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C04064E0B5C584000648158 /* InfoPlist.strings */; };
@@ -551,6 +553,9 @@
 		537F13012357076500770591 /* mpcdec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mpcdec.framework; path = Frameworks/mpcdec.framework; sourceTree = "<group>"; };
 		537F13032357076500770591 /* cuetools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = cuetools.framework; path = Frameworks/cuetools.framework; sourceTree = "<group>"; };
 		537F139C23570FD900770591 /* mac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mac.framework; path = Frameworks/mac.framework; sourceTree = "<group>"; };
+		5391D8002359E118004A407E /* AlbumArtSizeValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlbumArtSizeValueTransformer.h; sourceTree = "<group>"; };
+		5391D8012359E118004A407E /* AlbumArtSizeValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlbumArtSizeValueTransformer.m; sourceTree = "<group>"; };
+		5391D806235E6B0A004A407E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		53BF032A2357240A009B2429 /* taglib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = taglib.framework; path = Frameworks/taglib.framework; sourceTree = "<group>"; };
 		8C0406480B5C582E00648158 /* nb_NO */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = nb_NO; path = nb_NO.lproj/Credits.rtf; sourceTree = "<group>"; };
 		8C0406490B5C584000648158 /* nb_NO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = nb_NO; path = nb_NO.lproj/CompactDisc.strings; sourceTree = "<group>"; };
@@ -943,6 +948,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5391D806235E6B0A004A407E /* Images.xcassets */,
 				32C614A612E80CB800F714C9 /* Acknowledgments.xib */,
 				32C614A812E80CB800F714C9 /* AlbumArtPreferences.xib */,
 				32C614AA12E80CB800F714C9 /* AmazonAlbumArtSheet.xib */,
@@ -1219,6 +1225,8 @@
 		8C53FF570A05CCA400890518 /* ValueTransformers */ = {
 			isa = PBXGroup;
 			children = (
+				5391D8002359E118004A407E /* AlbumArtSizeValueTransformer.h */,
+				5391D8012359E118004A407E /* AlbumArtSizeValueTransformer.m */,
 				8C53FF580A05CCA400890518 /* BooleanArrayValueTransformer.h */,
 				8C53FF590A05CCA400890518 /* BooleanArrayValueTransformer.m */,
 				8C53FF5A0A05CCA400890518 /* BOOLToStringValueTransformer.h */,
@@ -1557,6 +1565,7 @@
 				8C29D8FD097F3EBE00E8B766 /* CompactDisc.strings in Resources */,
 				8C29D928097F424900E8B766 /* General.strings in Resources */,
 				8C29D94B097F442700E8B766 /* Genres.strings in Resources */,
+				5391D807235E6B0D004A407E /* Images.xcassets in Resources */,
 				8C29D981097F46A200E8B766 /* Log.strings in Resources */,
 				8CA6E46E09D065260047C35C /* UndoRedo.strings in Resources */,
 				8C5302080A05D5D800890518 /* AlbumArtToolbarImage.png in Resources */,
@@ -1684,6 +1693,7 @@
 				8C89D01C0A075BB600359E67 /* OggVorbisSettingsSheet.m in Sources */,
 				8C89D0640A075EF500359E67 /* MP3SettingsSheet.m in Sources */,
 				8C74F84A0A0B2C7C002260CF /* AudioMetadata.mm in Sources */,
+				5391D8022359E118004A407E /* AlbumArtSizeValueTransformer.m in Sources */,
 				8C74F8690A0B2D89002260CF /* Genres.m in Sources */,
 				8C74F8930A0B307E002260CF /* ServicesProvider.m in Sources */,
 				8C9451250A12E3FD00C8DCAE /* BasicRipperTask.m in Sources */,
@@ -2322,9 +2332,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 326D22E512DE468000767B04 /* Debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2348,11 +2360,12 @@
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 0.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.sbooth.Max;
 				PRODUCT_NAME = Max;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -2360,9 +2373,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 326D22E612DE468000767B04 /* Release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 23;
@@ -2380,11 +2395,12 @@
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MARKETING_VERSION = 0.9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.sbooth.Max;
 				PRODUCT_NAME = Max;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
