@@ -21,15 +21,15 @@
 #import "FileConversionToolbar.h"
 #import "FileConversionController.h"
 
-static NSString		*EncodeToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.Encode";
-static NSString		*MetadataToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.Metadata";
+static NSString		*EncodeToolbarItemIdentifier			= @"io.keithc.Max.FileConversion.Toolbar.Encode";
+static NSString		*MetadataToolbarItemIdentifier			= @"io.keithc.Max.FileConversion.Toolbar.Metadata";
 //static NSString		*AlbumArtToolbarItemIdentifier			= @"org.sbooth.Max.FileConversion.Toolbar.AlbumArt";
 
 @implementation FileConversionToolbar
 
 - (id) init
 {
-	if((self = [super initWithIdentifier:@"org.sbooth.Max.FileConversion.Toolbar"])) {
+	if((self = [super initWithIdentifier:@"io.keithc.Max.FileConversion.Toolbar"])) {
 	}
 	return self;
 }
