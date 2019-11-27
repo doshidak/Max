@@ -9,9 +9,9 @@ This is an **unofficial version** of Max that has been recompiled to support 64-
 
 ### [Download v0.9.2](https://github.com/doshidak/Max/releases/tag/release-0.9.2)
 
-**Build:** 23  
+**Build:** 24  
 **Requires:** macOS 10.9+  
-**Released:** Thursday, October 24, 2019
+**Released:** Wednesday, October 27, 2019
 
 > **Disclaimer:** As previously mentioned, this is an **unofficial version** of the Max app. This version is not endorsed by Stephen F. Booth or anyone else on the original Max development team. Use at your own risk!
 
