@@ -11,7 +11,7 @@ This is an **unofficial version** of Max that has been recompiled to support 64-
 
 **Build:** 24  
 **Requires:** macOS 10.9+  
-**Released:** Wednesday, November 27, 2019
+**Released:** Monday, December 2, 2019
 
 > **Disclaimer:** As previously mentioned, this is an **unofficial version** of the Max app. This version is not endorsed by Stephen F. Booth or anyone else on the original Max development team. Use at your own risk!
 
